@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ============================================================
+   LIGHT MODE (default)
+   ============================================================ */
+:root {
+  --sb-purple:       #534AB7;
+  --sb-purple-dark:  #3F379A;
+  --sb-purple-light: #7B72D6;
+  --sb-teal:         #1D9E75;
+  --sb-teal-light:   #4FBC97;
+  --sb-coral:        #D85A30;
+
+  /* surfaces */
+  --sb-bg:           #FFFFFF;
+  --sb-bg-secondary: #F7F6FD;
+  --sb-text:         #2C2C2A;
+  --sb-text-soft:    #5C5C5A;
+
+  /* tinted panels */
+  --sb-lavender:     #F1EEFF;
+  --sb-mint:         #E8F7F0;
+  --sb-blush:        #FFF1EC;
+  --sb-blue-soft:    #EAF1FF;
+  --sb-border:       #ECEAF7;
+
+  /* shadcn / radix tokens */
+  --background:           0 0% 100%;
+  --foreground:           60 4% 17%;
+  --card:                 0 0% 100%;
+  --card-foreground:      60 4% 17%;
+  --popover:              0 0% 100%;
+  --popover-foreground:   60 4% 17%;
+  --primary:              245 42% 51%;
+  --primary-foreground:   0 0% 100%;
+  --secondary:            250 60% 96%;
+  --secondary-foreground: 245 42% 30%;
+  --muted:                250 30% 96%;
+  --muted-foreground:     60 4% 36%;
+  --accent:               159 70% 36%;
+  --accent-foreground:    0 0% 100%;
+  --destructive:          14 67% 52%;
+  --destructive-foreground: 0 0% 100%;
+  --border:               248 36% 94%;
+  --input:                248 36% 94%;
+  --ring:                 245 42% 51%;
+  --radius:               1rem;
+
+  /* charts */
+  --chart-1: 245 42% 51%;
+  --chart-2: 159 70% 36%;
+  --chart-3: 14 67% 52%;
+  --chart-4: 200 60% 50%;
+  --chart-5: 280 50% 55%;
+}
+
+/* ============================================================
+   DARK MODE  — triggered by  <html class="dark">
+   ============================================================ */
+.dark {
+  --sb-purple:       #7B72D6;   /* lighter so it pops on dark bg  */
+  --sb-purple-dark:  #9B94E8;
+  --sb-purple-light: #B8B3F0;
+  --sb-teal:         #4FBC97;   /* brighter teal                  */
+  --sb-teal-light:   #7DD4B4;
+  --sb-coral:        #F07A55;   /* slightly lighter coral          */
+
+  /* surfaces */
+  --sb-bg:           #13111F;   /* deep purple-black               */
+  --sb-bg-secondary: #1C1930;   /* slightly lighter panel bg       */
+  --sb-text:         #EDE9FF;   /* soft lavender-white             */
+  --sb-text-soft:    #9E99C8;   /* muted lavender                  */
+
+  /* tinted panels — dark equivalents */
+  --sb-lavender:     #1E1A3A;   /* dark purple panel               */
+  --sb-mint:         #0F2922;   /* dark teal panel                 */
+  --sb-blush:        #2A1710;   /* dark coral panel                */
+  --sb-blue-soft:    #111D35;   /* dark blue panel                 */
+  --sb-border:       #2E2855;   /* visible but subtle border       */
+
+  /* shadcn / radix tokens */
+  --background:           245 28% 9%;
+  --foreground:           248 60% 95%;
+  --card:                 245 28% 12%;
+  --card-foreground:      248 60% 95%;
+  --popover:              245 28% 11%;
+  --popover-foreground:   248 60% 95%;
+  --primary:              248 65% 68%;
+  --primary-foreground:   245 28% 9%;
+  --secondary:            245 28% 18%;
+  --secondary-foreground: 248 60% 85%;
+  --muted:                245 28% 16%;
+  --muted-foreground:     248 30% 60%;
+  --accent:               159 60% 45%;
+  --accent-foreground:    0 0% 100%;
+  --destructive:          14 70% 58%;
+  --destructive-foreground: 0 0% 100%;
+  --border:               245 28% 22%;
+  --input:                245 28% 20%;
+  --ring:                 248 65% 68%;
+
+  /* charts */
+  --chart-1: 248 65% 68%;
+  --chart-2: 159 60% 45%;
+  --chart-3: 14 70% 58%;
+  --chart-4: 200 55% 58%;
+  --chart-5: 280 55% 65%;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+html { font-size: 16px; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--sb-bg);
+  color: var(--sb-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Focus ring - WCAG */
+*:focus-visible {
+  outline: 3px solid var(--sb-purple);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* High contrast mode */
+body.high-contrast {
+  background: #000000;
+  color: #FFFFFF;
+}
+body.high-contrast .sb-card,
+body.high-contrast .sb-soft {
+  background: #1a1a1a !important;
+  color: #FFFFFF !important;
+  border-color: #FFFF00 !important;
+}
+body.high-contrast a,
+body.high-contrast button { color: #FFFF00 !important; }
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+
+/* ============================================================
+   DARK MODE COMPONENT OVERRIDES
+   (for components that use hardcoded bg-white / text classes)
+   ============================================================ */
+.dark .bg-white {
+  background-color: hsl(var(--card)) !important;
+}
+.dark .border-\[var\(--sb-border\)\] {
+  border-color: var(--sb-border);
+}
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: hsl(var(--input));
+  color: var(--sb-text);
+  border-color: var(--sb-border);
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: var(--sb-text-soft);
+}
+
+/* Navbar dark */
+.dark header {
+  background: rgba(19, 17, 31, 0.88) !important;
+  border-color: var(--sb-border) !important;
+}
+
+/* Footer dark */
+.dark footer {
+  background: var(--sb-lavender) !important;
+  border-color: var(--sb-border) !important;
+}
+
+/* Cards / panels */
+.dark .sb-shadow-card {
+  box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
+}
+.dark .sb-shadow-soft {
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* Lavender tinted panels in dark */
+.dark .bg-\[var\(--sb-lavender\)\]\/40,
+.dark .bg-\[var\(--sb-lavender\)\]\/50,
+.dark .bg-\[var\(--sb-lavender\)\]\/60,
+.dark .from-\[var\(--sb-lavender\)\]\/50 {
+  --tw-bg-opacity: 1;
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.sb-grain { position: relative; }
+.sb-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(123,114,214,0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+/* Waveform animation */
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.35); }
+  50%       { transform: scaleY(1); }
+}
+.wave-bar {
+  display: inline-block;
+  width: 3px;
+  margin: 0 1.5px;
+  border-radius: 999px;
+  transform-origin: center;
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+/* Dashed connector */
+.dash-connector {
+  background-image: linear-gradient(to right, currentColor 50%, transparent 0%);
+  background-size: 12px 2px;
+  background-repeat: repeat-x;
+  background-position: center;
+  height: 2px;
+}
+
+/* Alert flash */
+@keyframes danger-flash {
+  0%, 100% { background-color: transparent; }
+  25%, 75%  { background-color: rgba(216, 90, 48, 0.6); }
+  50%       { background-color: rgba(216, 90, 48, 0.85); }
+}
+.danger-flash { animation: danger-flash 0.5s ease-in-out 4; }
+
+/* Selection */
+::selection { background: var(--sb-purple); color: white; }
+
+/* Buttons base */
+button { font-family: inherit; }
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  background: var(--sb-purple);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  z-index: 100;
+  font-weight: 600;
+}
+.skip-link:focus { left: 16px; }
